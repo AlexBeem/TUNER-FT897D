@@ -1,1 +1,44 @@
-#
+#######################################
+# Syntax Coloring Map FT897D_UNI
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+ft897	KEYWORD1	ft897
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+Init	KEYWORD2
+SetLock	KEYWORD2
+SetPTT	KEYWORD2
+SetCLAR	KEYWORD2
+SetCLARFreq	KEYWORD2
+SetSplit	KEYWORD2
+SetRepeaterOffsetDir	KEYWORD2
+SetRepeaterOffsetFreq	KEYWORD2
+SetMainFreq	KEYWORD2
+ToggleVFO	KEYWORD2
+SetDCSMode	KEYWORD2
+SetCTCSSToneFreq	KEYWORD2
+SetDCSCode	KEYWORD2
+SetOperatingMode  KEYWORD2
+ReadRXStatus	KEYWORD2
+ReadTXStatus  KEYWORD2
+uniFT897D KEYWORD2
+GetOperatingMode  KEYWORD2
+GetFrequency  KEYWORD2
+SMValue KEYWORD2
+Discr KEYWORD2
+Code  KEYWORD2
+SQL KEYWORD2
+PowerValue  KEYWORD2
+Split KEYWORD2
+SWR KEYWORD2
+PTT KEYWORD2
+#######################################
+# Constants (LITERAL1)
+#######################################
+
