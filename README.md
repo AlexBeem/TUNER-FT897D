@@ -10,3 +10,4 @@
 # Отладка
 Для отладки можно использовать библиотеку от Pavel Milanes, CO7WT, pavelmc@gmail.com оригинал библиотеки можно найти здесь - https://github.com/pavelmc/FT857d.
 Посоветую использовать форк библиотеки со страницы UA6EM, в ней есть готовый пример позволяющий имитировать переключение диапазонов трансивера - https://github.com/UA6EM/FT857d
+* NetEEPROM (Library to set or display the network settings of the bootloader)
