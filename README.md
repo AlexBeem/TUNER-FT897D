@@ -5,7 +5,8 @@
 * по работе с SoftWare серийными портами - CustomSoftwareSerial.h от Thuc Le https://github.com/ledongthuc/CustomSoftwareSerial
 * билиотеке оболочке для библиотек работающих с SoftWare, HardWare и USB_Serial портами - SomeSerial от Asuki Kono - https://github.com/asukiaaa/SomeSerial
 * тщательно переработанной Дмитрием - DetSimen  - https://github.com/DetSimen/FT879D библиотеки от  VE3BUX
-* Author:  James Buck, VE3BUX   Web:  http://www.ve3bux.com, впервые библиотека была адаптирована UA6EM под версию ARDUINO IDE 1.8.Х.
+* Author:  James Buck, VE3BUX   Web:  http://www.ve3bux.com 
+* впервые библиотека была адаптирована UA6EM под версию ARDUINO IDE 1.8.Х.
 
 * Комплект библиотек позволит реализовать для трансиверов этих марок панель удалённого управления.
 * Развитие проекта видится в этом направлении.
