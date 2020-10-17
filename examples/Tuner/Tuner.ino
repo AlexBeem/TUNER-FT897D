@@ -3,10 +3,10 @@
 #include <CustomSoftwareSerial.h>
 
 
-#define SOFTPORT  // если определено используем SofwareSerial
+#define SOFTSERIAL  // если определено используем SofwareSerial
 #define SERIAL1   //328PB ONLY
 
-#ifdef  SOFTPORT
+#ifdef  SOFTSERIAL
 ALSerial RadioPort(2, 3); // RX, TX
 uniFT897D Radio(RadioPort);
 #else
@@ -76,6 +76,7 @@ void setup() {
 }
 
 void loop() {
+  uint8_t pw,tpw,ptt; 
   
   ftFreq = Radio.GetFrequency();
   Serial.print(" Freq   = ");
@@ -93,12 +94,26 @@ void loop() {
   if(tx_status.PTT){
   Serial.print(" PTT    = ");
   Serial.println("OFF");
-  }else{ 
+  ptt = 0;
+  }else{ ptt = 1;
   Serial.print(" PTT    = ");  
   Serial.println("ON");
   Serial.print(" Power  = ");
-  Serial.println(tx_status.PowerValue);
-  Serial.print(" HSWR   = ");  
+  pw = tx_status.PowerValue;
+//  if(pw >=8 && pw <= 10)tpw = pw*10;
+//  if(pw < 8)tpw = (pw-1)*10;
+  if(pw == 2) tpw = 5;
+  if(pw == 3) tpw = 10;
+  if(pw == 4) tpw = 20;
+  if(pw == 5) tpw = 30;
+  if(pw == 6) tpw = 40;
+  if(pw == 7) tpw = 60;
+  if(pw == 8) tpw = 80;
+  if(pw == 9) tpw = 90;
+  if(pw == 10) tpw = 100; 
+  Serial.print(tpw);
+  Serial.println(" Ватт");
+  Serial.print(" HSWR -  ");  
   if(tx_status.SWR){
   Serial.println("YES");
   }else{
@@ -106,6 +121,7 @@ void loop() {
   }
   
   TRX_Status rx_status = Radio.ReadRXStatus();
+  if(ptt == 0){
   Serial.print(" S-Metr    = S");
   uint8_t s = rx_status.SMValue;
   if(s > 9){
@@ -113,9 +129,10 @@ void loop() {
   Serial.print(9);
   Serial.print(" + ");
   Serial.print(s1);
-  Serial.println("_Db");
+  Serial.println("dB");
   }else{
   Serial.println(s);
+   }
   }
   
   Serial.print(" DISCRIM   = ");
