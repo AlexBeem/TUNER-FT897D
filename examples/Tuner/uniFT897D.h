@@ -145,7 +145,11 @@ public:
   uniFT897D(ALSerial& ASerialPort); 
     
   // инициализация класса
-  void Init(const uint32_t ABaudRate = 4800, const uint16_t ADataParity = 802); 
+#ifdef SOFTSERIAL
+    void Init(const uint32_t ABaudRate = 4800, const uint16_t ADataParity = CSERIAL_8N2); 
+#else
+    void Init(const uint32_t ABaudRate = 4800, const uint16_t ADataParity = SERIAL_8N2); 
+#endif
 
   // AValue == (ON | OFF)  блокировка вкл/выкл
   void SetLock(const bool AValue);  
