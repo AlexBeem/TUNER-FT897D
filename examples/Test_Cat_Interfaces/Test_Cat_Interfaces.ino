@@ -114,6 +114,8 @@ Btn1.init();
 
 void loop() {
 
+//  Click Button is - UP, Long Click Button is Down
+  
 //   Radio.SetOperatingMode(TOperatingMode::FM);   // Работает
 //   Radio.SetMainFreq(145.500);                   // Работает
 
