@@ -25,7 +25,6 @@ uniFT897D Radio(RadioPort);
 #endif
 #endif
 
-#define Button_GND 12
 #define BUTTON  10
 
 
@@ -103,9 +102,8 @@ void setup() {
 
  pinMode(Button_GND,OUTPUT);
  pinMode(13,OUTPUT);
- digitalWrite(Button_GND,LOW);
  digitalWrite(13,HIGH);
-// pinMode(BUTTON,INPUT_PULLUP); // инициализируется в библиотеке
+// pinMode(BUTTON,INPUT_PULLUP); // инициализируется в библиотеке (setup in function)
 
 // Настроим трансивер
 Radio.SetOperatingMode(TOperatingMode::FM);
