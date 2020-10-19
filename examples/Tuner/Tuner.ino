@@ -160,15 +160,5 @@ void loop() {
   delay(3000);
 
 // Управляем трансивером
-/* 
-  Radio.Init(9600);
-  Radio.SetMainFreq(14.25);
-  Radio.ToggleVFO();
-  Radio.SetRepeaterOffsetFreq(5.4321);
-  Radio.SetCLAR(ON);
-  Radio.SetCLARFreq(12.5);
-  Radio.SetDCSMode(TDCS_Mode::DCS_ENCODER_ON);
-  Radio.SetCTCSSToneFreq(88.0, 100.0);
-  Radio.SetDCSCode(50, 9500);
-  */
+
 }
