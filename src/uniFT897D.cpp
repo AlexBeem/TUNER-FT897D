@@ -1,4 +1,6 @@
 // Заимствовано у DetDimen на https://github.com/DetSimen/FT879D и переработано UA6EM
+// redesigned the James Buck library, VE3BUX 
+// is available here - https://github.com/AlexBeem/TUNER-FT897D
 
 #include "uniFT897D.h"
 //#include <Consts.h>
