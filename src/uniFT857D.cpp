@@ -1,6 +1,8 @@
-//#include "ALSerial.h"
-#include "uniFT897D.h"
+// Заимствовано у DetDimen на https://github.com/DetSimen/FT879D и переработано UA6EM
 
+#include "uniFT897D.h"
+//#include <Consts.h>
+//#include <Generics.h>
 
 void uniFT897D::ClearCmdBuffer(void)
 {
@@ -93,7 +95,7 @@ void uniFT897D::SetRepeaterOffsetFreq(float ARepFreq)
 {
   if (ARepFreq < 0) ARepFreq = -ARepFreq;
   if (ARepFreq >= 100.0) ARepFreq = 99.99;
-  const char* ptr = Freq2String(ARepFreq, 2, 8);
+  const char* ptr = Freq2String(ARepFreq, 3, 8);
 
   StringToBCD(ptr, &FCommand.Byte0, 4);
 
@@ -155,10 +157,11 @@ void uniFT897D::SetDCSCode(const uint16_t ATXCode, const uint16_t ARXCode)
 {
   ClearCmdBuffer();
   
-  const char* ptr = Freq2String(ATXCode / 100.0, 2, 4);
+//  const char* ptr = Freq2String(ATXCode / 100.0, 3, 4);
+  const char* ptr = Freq2String(ATXCode / 10.0, 3, 4);
   StringToBCD(ptr, &FCommand.Byte0, 2);
 
-  ptr = Freq2String(ARXCode / 100.0, 2, 4);
+  ptr = Freq2String(ARXCode / 10.0, 3, 4);
   StringToBCD(ptr, &FCommand.Byte2, 2);
 
   FCommand.Command = CMD_SET_DCS_CODE;
