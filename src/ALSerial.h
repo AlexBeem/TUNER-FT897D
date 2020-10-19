@@ -1,3 +1,8 @@
+// Заимствовано у ASUKI KONO https://github.com/asukiaaa/SomeSerial и переработано под
+// библиотеку Thuc Le - https://github.com/ledongthuc/CustomSoftwareSerial 
+// UA6EM 19.10.2020
+
+
 #ifndef AL_SERIAL_H
 #define AL_SERIAL_H
 
