@@ -39,6 +39,22 @@ Split KEYWORD2
 SWR KEYWORD2
 PTT KEYWORD2
 #######################################
+# To ALSerial
+#######################################
+begin	KEYWORD2
+end	KEYWORD2
+read	KEYWORD2
+write	KEYWORD2
+available	KEYWORD2
+flush	KEYWORD2
+peek	KEYWORD2
+isSoftwareSerial	KEYWORD2
+isHardwareSerial	KEYWORD2
+isSerial_	KEYWORD2
+thisSoftwareSerial	KEYWORD2
+thisHardwareSerial	KEYWORD2
+thisSerial_	KEYWORD2
+#######################################
 # Constants (LITERAL1)
 #######################################
 
