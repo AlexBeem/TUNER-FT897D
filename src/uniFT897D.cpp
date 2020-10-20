@@ -156,8 +156,7 @@ void uniFT897D::SetCTCSSToneFreq(float ATXFreq, float ARXFreq)
 void uniFT897D::SetDCSCode(const uint16_t ATXCode, const uint16_t ARXCode)
 {
   ClearCmdBuffer();
-  
-//  const char* ptr = Freq2String(ATXCode / 100.0, 3, 4);
+
   const char* ptr = Freq2String(ATXCode / 10.0, 3, 4);
   StringToBCD(ptr, &FCommand.Byte0, 2);
 
