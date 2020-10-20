@@ -11,21 +11,21 @@ ft897	KEYWORD1	ft897
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
-Init	KEYWORD2
-SetLock	KEYWORD2
-SetPTT	KEYWORD2
-SetCLAR	KEYWORD2
-SetCLARFreq	KEYWORD2
-SetSplit	KEYWORD2
-SetRepeaterOffsetDir	KEYWORD2
-SetRepeaterOffsetFreq	KEYWORD2
-SetMainFreq	KEYWORD2
-ToggleVFO	KEYWORD2
-SetDCSMode	KEYWORD2
-SetCTCSSToneFreq	KEYWORD2
-SetDCSCode	KEYWORD2
-SetOperatingMode  KEYWORD2
-ReadRXStatus	KEYWORD2
+Init  KEYWORD2
+SetLock KEYWORD2
+SetPTT  KEYWORD2
+SetCLAR KEYWORD2
+SetCLARFreq KEYWORD2
+SetSplit  KEYWORD2
+SetRepeaterOffsetDir  KEYWORD2
+SetRepeaterOffsetFreq KEYWORD2
+SetMainFreq KEYWORD2
+ToggleVFO KEYWORD2
+SetDCSMode  KEYWORD2
+SetCTCSSToneFreq  KEYWORD2
+SetDCSCode  KEYWORD2
+SetOperatingMode   KEYWORD2
+ReadRXStatus  KEYWORD2
 ReadTXStatus  KEYWORD2
 uniFT897D KEYWORD2
 GetOperatingMode  KEYWORD2
@@ -41,19 +41,19 @@ PTT KEYWORD2
 #######################################
 # To ALSerial
 #######################################
-begin	KEYWORD2
-end	KEYWORD2
-read	KEYWORD2
-write	KEYWORD2
-available	KEYWORD2
-flush	KEYWORD2
-peek	KEYWORD2
-isSoftwareSerial	KEYWORD2
-isHardwareSerial	KEYWORD2
-isSerial_	KEYWORD2
-thisSoftwareSerial	KEYWORD2
-thisHardwareSerial	KEYWORD2
-thisSerial_	KEYWORD2
+begin KEYWORD2
+end KEYWORD2
+read  KEYWORD2
+write KEYWORD2
+available KEYWORD2
+flush KEYWORD2
+peek  KEYWORD2
+isSoftwareSerial  KEYWORD2
+isHardwareSerial  KEYWORD2
+isSerial_ KEYWORD2
+thisSoftwareSerial  KEYWORD2
+thisHardwareSerial  KEYWORD2
+thisSerial_ KEYWORD2
 #######################################
 # Constants (LITERAL1)
 #######################################
