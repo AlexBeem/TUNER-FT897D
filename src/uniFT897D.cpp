@@ -3,8 +3,6 @@
 // is available here - https://github.com/AlexBeem/TUNER-FT897D
 
 #include "uniFT897D.h"
-//#include <Consts.h>
-//#include <Generics.h>
 
 void uniFT897D::ClearCmdBuffer(void)
 {
