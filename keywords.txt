@@ -39,6 +39,26 @@ Split KEYWORD2
 SWR KEYWORD2
 PTT KEYWORD2
 #######################################
+# CustomSoftwareSerial
+#######################################
+CustomSoftwareSerial	KEYWORD2
+begin KEYWORD2
+listen KEYWORD2
+end KEYWORD2
+isListening KEYWORD2
+overflow	KEYWORD2
+peek KEYWORD2
+getNumberOfDataBit KEYWORD2
+getParity KEYWORD2
+getNumberOfStopBit KEYWORD2
+calculateNumberOfBits1 KEYWORD2
+writeStopBits	KEYWORD2
+writeParityBits	KEYWORD2
+size_t write	KEYWORD2
+read  KEYWORD2
+available	KEYWORD2
+flush	KEYWORD2
+#######################################
 # Constants (LITERAL1)
 #######################################
 
