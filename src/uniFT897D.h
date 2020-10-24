@@ -178,6 +178,9 @@ public:
   // Установка частоты в понятных цифрах, например 14.1234 MHz
   void SetMainFreq(float AMainFreq); 
   
+  // Установка частоты в десятках Герц, для установки точной частоты через энкодер
+  void SetVfoFreq(uint32_t AVfoFreq);
+  
   // переключить VFO A/B
   void ToggleVFO(void); 
 
