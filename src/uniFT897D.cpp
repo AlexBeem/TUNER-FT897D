@@ -117,6 +117,29 @@ void uniFT897D::SetMainFreq(float AMainFreq)
   SendCommand();
 }
 
+// Установка частоты в десятках Герц
+void uniFT897D::SetVfoFreq(uint32_t AVfoFreq)
+{
+    char out[9];
+    memset(out, '0', 8); out[8] = 0x00;
+ 
+    ClearCmdBuffer();
+ 
+    char* ptr = &out[3];
+    if (AVfoFreq >= 100000UL) ptr--;   // Если больше или равно 1.0 МГц сдвигаемся влево
+    if (AVfoFreq >= 1000000UL) ptr--;  // Если больше или равно 10.0 МГц
+    if (AVfoFreq >= 10000000) ptr--;   // Если больше или равно 100.0 МГц
+ 
+    ultoa(AVfoFreq, ptr, 10);
+ 
+    StringToBCD(out, &FCommand.Byte0, 4);
+ 
+    FCommand.Command = CMD_SET_MAIN_FREQ;
+ 
+    SendCommand(true);
+}
+
+
 void uniFT897D::ToggleVFO(void)
 {
   ClearCmdBuffer();
