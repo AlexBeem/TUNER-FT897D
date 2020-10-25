@@ -1,12 +1,14 @@
-#include "ALSerial.h"
-#include "uniFT897D.h"
-#include "CustomSoftwareSerial.h"
+#include <ALSerial.h>
+#include <uniFT897D.h>
+#include <CustomSoftwareSerial.h>
 #include <RotaryEncoder.h> // https://github.com/mathertel/RotaryEncoder/tree/master/examples
-#include <GyverButton.h>
+//#include <GyverButton.h>
 
 int freqUpPin = 4;                          // Define rotary encoder pins.
 int freqDownPin = 5;
 RotaryEncoder encoder(freqUpPin, freqDownPin);
+//RotaryEncoder encoder2(A2, A3);
+RotaryEncoder encoder2(8, 9);
 
 
 #define SOFTSERIAL  // если определено используем SofwareSerial, 
@@ -30,18 +32,12 @@ uniFT897D Radio(RadioPort);
 #define BUTTON  10
 #define BUTTON_ENCODER 6
 
-/*
-float ftFreq;
-uint32_t freq = 145260000;
-uint32_t RftFreq = 14526000;  // Частота для передачи через SetVfoFreq
-uint32_t incr = 10;
-*/
 int32_t incr = 25000;
 int32_t freq = 145000000;
-int32_t freq_temp = 145000000;
-float Ffreq = freq/100000.0f;;
+float Ffreq;
 uint32_t ftFreq;
-uint8_t CW = 1;
+uint32_t freq_tmp;
+uint32_t my_micros;
 
 unsigned long mill; // переменная под  millis()
 uint8_t fl_proc = 0;
@@ -98,8 +94,6 @@ class Cl_Btn {
       return state;
     }
 };
-
-//Cl_Btn Btn1(/*пин*/BUTTON); //Экземпляр обработчика для кнопки
 Cl_Btn Btn2(/*пин*/BUTTON_ENCODER); //Экземпляр обработчика для кнопки
 
 
@@ -135,7 +129,20 @@ Serial.println("Set VFO Freq = 145.500");
 
 //Btn1.init(); // кнопка переключателя
 Btn2.init(); // кнопка энкодера
+
+ // You may have to modify the next 2 lines if using other pins than A2 and A3
+ // PCICR |= (1 << PCIE0 /*D8-D13*/) | (1 << PCIE1 /*A0-A5*/) | (1 << PCIE2 /*D0-D7*/);    // Замаркировать неиспользуемые прерывания
+ // PCICR |= (1 << PCIE0 /*D8-D13*/); 
+ // PCMSK0 |= (1 << PCINT0) | (1 << PCINT1);    //  D8-PCINT0 и D13-PCINT5
+ // PCMSK1 |= (1 << PCINT8) | (1 << PCINT13);   //  A0 и A5
+ // PCMSK2 |= (1 << PCINT16) | (1 << PCINT23);  //  D0 и D7
 }
+
+/*
+ISR(PCINT1_vect) {
+  encoder2.tick(); // 
+}
+*/
 
 void loop() {
 
@@ -149,17 +156,29 @@ if (Btn2.read() == sbLong)   { // Вызвать процедуру по дли�
 incr = 1000;
 }
   static int pos = 0;
+  static int pos2 = 0;
+  int newPos2 = encoder2.getPosition();
+
   encoder.tick();
 
   int newPos = encoder.getPosition();
   if (pos != newPos) {
-      if(max(newPos,pos) > pos){freq = freq +incr;}else{freq = freq - incr;}
-      
-    Serial.print("Freq = ");
-//    freq = freq_temp +(incr * (newPos)); 
-    Serial.println(freq/1000000.0f, 5);
-    ftFreq = freq/10;
+    if(max(newPos,pos) > pos){freq = freq +incr;}else{freq = freq - incr;}
+    ftFreq = freq/10;  
     Radio.SetVfoFreq(ftFreq);
     pos = newPos;
+
+    #ifdef  SOFTSERIAL  // Выведем значение частоты в порт
+    Serial.print("Freq = ");
+    Serial.print(freq/1000000);
+    Serial.print(".");
+    freq_tmp = freq % 1000000;
+    if(freq_tmp < 100000)  Serial.print("0");  // дополним лидирующим 0 
+    Serial.println((freq_tmp));   
+    Serial.println((micros() - my_micros));
+    my_micros = micros();      
+    #endif 
   }
+ 
+  
 }  // END LOOP
