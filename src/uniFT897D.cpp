@@ -2,7 +2,9 @@
 // redesigned the James Buck library, VE3BUX 
 // is available here - https://github.com/AlexBeem/TUNER-FT897D
 
+//#include "ALSerial.h"
 #include "uniFT897D.h"
+
 
 void uniFT897D::ClearCmdBuffer(void)
 {
@@ -95,7 +97,7 @@ void uniFT897D::SetRepeaterOffsetFreq(float ARepFreq)
 {
   if (ARepFreq < 0) ARepFreq = -ARepFreq;
   if (ARepFreq >= 100.0) ARepFreq = 99.99;
-  const char* ptr = Freq2String(ARepFreq, 3, 8);
+  const char* ptr = Freq2String(ARepFreq, 2, 8);
 
   StringToBCD(ptr, &FCommand.Byte0, 4);
 
@@ -118,6 +120,29 @@ void uniFT897D::SetMainFreq(float AMainFreq)
 
   SendCommand();
 }
+
+// Установка частоты в десятках Герц
+void uniFT897D::SetVfoFreq(uint32_t AVfoFreq)
+{
+    char out[9];
+    memset(out, '0', 8); out[8] = 0x00;
+ 
+    ClearCmdBuffer();
+ 
+    char* ptr = &out[3];
+    if (AVfoFreq >= 100000UL) ptr--;   // Если больше или равно 1.0 МГц сдвигаемся влево
+    if (AVfoFreq >= 1000000UL) ptr--;  // Если больше или равно 10.0 МГц
+    if (AVfoFreq >= 10000000) ptr--;   // Если больше или равно 100.0 МГц
+ 
+    ultoa(AVfoFreq, ptr, 10);
+ 
+    StringToBCD(out, &FCommand.Byte0, 4);
+ 
+    FCommand.Command = CMD_SET_MAIN_FREQ;
+ 
+    SendCommand(true);
+}
+
 
 void uniFT897D::ToggleVFO(void)
 {
@@ -156,11 +181,11 @@ void uniFT897D::SetCTCSSToneFreq(float ATXFreq, float ARXFreq)
 void uniFT897D::SetDCSCode(const uint16_t ATXCode, const uint16_t ARXCode)
 {
   ClearCmdBuffer();
-
-  const char* ptr = Freq2String(ATXCode / 10.0, 3, 4);
+  
+  const char* ptr = Freq2String(ATXCode / 100.0, 2, 4);
   StringToBCD(ptr, &FCommand.Byte0, 2);
 
-  ptr = Freq2String(ARXCode / 10.0, 3, 4);
+  ptr = Freq2String(ARXCode / 100.0, 2, 4);
   StringToBCD(ptr, &FCommand.Byte2, 2);
 
   FCommand.Command = CMD_SET_DCS_CODE;
