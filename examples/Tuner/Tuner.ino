@@ -1,3 +1,7 @@
+/*
+* Программа разбирает парметры приёма и передачи передаваемые через CAT интерфейс
+*/
+
 #include "ALSerial.h"
 #include "uniFT897D.h"
 #include <CustomSoftwareSerial.h>
