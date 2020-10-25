@@ -1,3 +1,9 @@
+/*
+* Скетч панели управления для трансиверов FT-897D/ FT-857D через CAT систему
+* 25.10.2020 (с) UA6EM
+*
+*/
+
 #include "ALSerial.h"
 #include "uniFT897D.h"
 #include <CustomSoftwareSerial.h>
