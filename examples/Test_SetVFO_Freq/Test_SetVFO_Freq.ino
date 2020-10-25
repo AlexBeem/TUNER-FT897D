@@ -41,6 +41,7 @@ int32_t freq = 145000000;
 int32_t freq_temp = 145000000;
 float Ffreq = freq/100000.0f;;
 uint32_t ftFreq;
+uint8_t CW = 1;
 
 unsigned long mill; // переменная под  millis()
 uint8_t fl_proc = 0;
@@ -152,9 +153,10 @@ incr = 1000;
 
   int newPos = encoder.getPosition();
   if (pos != newPos) {
-//    pos = newPos;
+      if(max(newPos,pos) > pos){freq = freq +incr;}else{freq = freq - incr;}
+      
     Serial.print("Freq = ");
-    freq = freq_temp +(incr * (newPos)); 
+//    freq = freq_temp +(incr * (newPos)); 
     Serial.println(freq/1000000.0f, 5);
     ftFreq = freq/10;
     Radio.SetVfoFreq(ftFreq);
