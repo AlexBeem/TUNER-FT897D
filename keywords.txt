@@ -11,51 +11,103 @@ ft897	KEYWORD1	ft897
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
-Init  KEYWORD2
-SetLock KEYWORD2
-SetPTT  KEYWORD2
-SetCLAR KEYWORD2
-SetCLARFreq KEYWORD2
-SetSplit  KEYWORD2
-SetRepeaterOffsetDir  KEYWORD2
-SetRepeaterOffsetFreq KEYWORD2
-SetMainFreq KEYWORD2
-ToggleVFO KEYWORD2
-SetDCSMode  KEYWORD2
-SetCTCSSToneFreq  KEYWORD2
-SetDCSCode  KEYWORD2
-SetOperatingMode   KEYWORD2
-ReadRXStatus  KEYWORD2
-ReadTXStatus  KEYWORD2
-uniFT897D KEYWORD2
-GetOperatingMode  KEYWORD2
-GetFrequency  KEYWORD2
-SMValue KEYWORD2
-Discr KEYWORD2
-Code  KEYWORD2
-SQL KEYWORD2
-PowerValue  KEYWORD2
-Split KEYWORD2
-SWR KEYWORD2
-PTT KEYWORD2
+Init	KEYWORD2
+SetLock	KEYWORD2
+SetPTT	KEYWORD2
+SetCLAR	KEYWORD2
+SetCLARFreq	KEYWORD2
+SetSplit	KEYWORD2
+SetRepeaterOffsetDir	KEYWORD2
+SetRepeaterOffsetFreq	KEYWORD2
+SetMainFreq	KEYWORD2
+ToggleVFO	KEYWORD2
+SetDCSMode	KEYWORD2
+SetCTCSSToneFreq	KEYWORD2
+SetDCSCode	KEYWORD2
+SetOperatingMode	KEYWORD2
+ReadRXStatus	KEYWORD2
+ReadTXStatus	KEYWORD2
+uniFT897D	KEYWORD2
+GetOperatingMode	KEYWORD2
+GetFrequency	KEYWORD2
+SMValue	KEYWORD2
+Discr	KEYWORD2
+Code	KEYWORD2
+SQL	KEYWORD2
+PowerValue	KEYWORD2
+Split	KEYWORD2
+SWR	KEYWORD2
+PTT	KEYWORD2
 SetVfoFreq	KEYWORD2
 #######################################
 # To ALSerial
 #######################################
-begin KEYWORD2
-end KEYWORD2
-read  KEYWORD2
-write KEYWORD2
-available KEYWORD2
-flush KEYWORD2
-peek  KEYWORD2
-isSoftwareSerial  KEYWORD2
-isHardwareSerial  KEYWORD2
-isSerial_ KEYWORD2
-thisSoftwareSerial  KEYWORD2
-thisHardwareSerial  KEYWORD2
-thisSerial_ KEYWORD2
+begin	KEYWORD2
+end	KEYWORD2
+read	KEYWORD2
+write	KEYWORD2
+available	KEYWORD2
+flush	KEYWORD2
+peek	KEYWORD2
+isSoftwareSerial	KEYWORD2
+isHardwareSerial	KEYWORD2
+isSerial_	KEYWORD2
+thisSoftwareSerial	KEYWORD2
+thisHardwareSerial	KEYWORD2
+thisSerial_	KEYWORD2
+#######################################
+# CustomSoftwareSerial
+#######################################
+CustomSoftwareSerial	KEYWORD2
+begin	KEYWORD2
+listen	KEYWORD2
+end	KEYWORD2
+isListening	KEYWORD2
+overflow	KEYWORD2
+peek	KEYWORD2
+getNumberOfDataBit	KEYWORD2
+getParity	KEYWORD2
+getNumberOfStopBit	KEYWORD2
+calculateNumberOfBits1	KEYWORD2
+writeStopBits	KEYWORD2
+writeParityBits	KEYWORD2
+size_t write	KEYWORD2
+read	KEYWORD2
+available	KEYWORD2
+flush	KEYWORD2
+CSERIAL_5N1	KEYWORD2
+CSERIAL_6N1	KEYWORD2
+CSERIAL_7N1	KEYWORD2
+CSERIAL_8N1	KEYWORD2
+#
+CSERIAL_5N2	KEYWORD2
+CSERIAL_6N2	KEYWORD2
+CSERIAL_7N2	KEYWORD2
+CSERIAL_8N2	KEYWORD2
+#
+CSERIAL_5O1	KEYWORD2
+CSERIAL_6O1	KEYWORD2
+CSERIAL_7O1	KEYWORD2
+CSERIAL_8O1	KEYWORD2
+#
+CSERIAL_5O2	KEYWORD2
+CSERIAL_6O2	KEYWORD2
+CSERIAL_7O2	KEYWORD2
+CSERIAL_8O2	KEYWORD2
+#
+CSERIAL_5E1	KEYWORD2
+CSERIAL_6E1	KEYWORD2
+CSERIAL_7E1	KEYWORD2
+CSERIAL_8E1	KEYWORD2
+#
+CSERIAL_5E2	KEYWORD2
+CSERIAL_6E2	KEYWORD2
+CSERIAL_7E2	KEYWORD2
+CSERIAL_8E2	KEYWORD2
+#
 #######################################
 # Constants (LITERAL1)
 #######################################
+
+
 
