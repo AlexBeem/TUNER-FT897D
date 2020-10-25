@@ -133,16 +133,20 @@ Btn2.init(); // кнопка энкодера
  // You may have to modify the next 2 lines if using other pins than A2 and A3
  // PCICR |= (1 << PCIE0 /*D8-D13*/) | (1 << PCIE1 /*A0-A5*/) | (1 << PCIE2 /*D0-D7*/);    // Замаркировать неиспользуемые прерывания
  // PCICR |= (1 << PCIE0 /*D8-D13*/); 
+ // PCICR |= (1 << PCIE1 /*A0-A5*/); 
+ // PCICR |= (1 << PCIE2 /*D0-D7*/); 
  // PCMSK0 |= (1 << PCINT0) | (1 << PCINT1);    //  D8-PCINT0 и D13-PCINT5
+ // PCMSK0 |= (1 << PCINT0) | (1 << PCINT1);
  // PCMSK1 |= (1 << PCINT8) | (1 << PCINT13);   //  A0 и A5
+ // PCMSK1 |= (1 << PCINT10) | (1 << PCINT11);   //  A2 и A3
  // PCMSK2 |= (1 << PCINT16) | (1 << PCINT23);  //  D0 и D7
 }
 
-/*
-ISR(PCINT1_vect) {
+/* *
+ISR(PCINT0_vect) {
   encoder2.tick(); // 
 }
-*/
+**/
 
 void loop() {
 
@@ -157,11 +161,13 @@ incr = 1000;
 }
   static int pos = 0;
   static int pos2 = 0;
+  
+  encoder2.tick();
   int newPos2 = encoder2.getPosition();
 
   encoder.tick();
-
   int newPos = encoder.getPosition();
+  
   if (pos != newPos) {
     if(max(newPos,pos) > pos){freq = freq +incr;}else{freq = freq - incr;}
     ftFreq = freq/10;  
