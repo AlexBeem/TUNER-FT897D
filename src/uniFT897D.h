@@ -1,5 +1,4 @@
-// Заимствовано у DetDimen на https://github.com/DetSimen/FT879D и переработано UA6EM
-
+// Заимствовано у DetDimen и переработано UA6EM
 #pragma once
 
 #include <Arduino.h>
@@ -159,15 +158,15 @@ public:
   void SetPTT(const bool AValue);   
 
   // по умолчанию рабочий режим - ключ
-  void SetOperatingMode(const TOperatingMode AMode = TOperatingMode::USB); 
+  void SetOperatingMode(const TOperatingMode AMode = TOperatingMode::CW); 
 
   // AValue == (ON | OFF)  подстройка частоты вкл/выкл
   void SetCLAR(const bool AValue); 
 
-  // установка частоты подстройки AClarFreq = -12.00...+12.00
+  // установка частоты подстройки AClarFreq = -99.99...+99.99
   void SetCLARFreq(float AClarFreq);
 
-  // Разнос частот (split) (ON | OFF) вкл/выкл
+  // Разнос частот (split) вкл/выкл
   void SetSplit(const bool AValue);
 
   // Установка направления смещения для репитёра 
@@ -179,12 +178,14 @@ public:
   // Установка частоты в понятных цифрах, например 14.1234 MHz
   void SetMainFreq(float AMainFreq); 
   
+  // Установка частоты в десятках Герц, для установки точной частоты через энкодер
+  void SetVfoFreq(uint32_t AVfoFreq);
+  
   // переключить VFO A/B
   void ToggleVFO(void); 
 
   // установить режим DCS | CTCSS
   void SetDCSMode(const TDCS_Mode AMode);
-
 
   // Установить тоновую частоту режима CTCSS для приема и передачи 
   // 0..999Гц и та и другая
@@ -202,7 +203,6 @@ public:
   // 371, 411, 412, 413, 423, 431, 432, 445, 446, 452, 454, 455, 462, 464, 465, 466, 503, 506, 516, 523, 526,
   // 532, 546, 565, 606, 612, 624, 627, 631, 632, 654, 662, 664, 703, 712, 723, 731, 732, 734, 743, 754 
   void SetDCSCode(const uint16_t ATXCode, const uint16_t ARXCode);
-
 
   // Прочитать статус приема
   //
@@ -225,3 +225,4 @@ public:
 };
 
 #pragma pack(pop)
+
