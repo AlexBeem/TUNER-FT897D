@@ -1,3 +1,6 @@
+// 26.10.2020 Добавлена возможность работы Энкодера через прерывание PCINT0 для этого немного
+// исправлена библиотека CustomSoftwareSerial, высвобождено это прерывание
+
 #include <ALSerial.h>
 #include <uniFT897D.h>
 #include <CustomSoftwareSerial.h>
