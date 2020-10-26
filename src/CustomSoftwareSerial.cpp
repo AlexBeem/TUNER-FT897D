@@ -311,6 +311,7 @@ inline void CustomSoftwareSerial::handle_interrupt()
   }
 }
 
+// Освобождено прерывание PCINT0 для нужд других устройств
 //#if defined(PCINT0_vect)
 //ISR(PCINT0_vect)
 //{
