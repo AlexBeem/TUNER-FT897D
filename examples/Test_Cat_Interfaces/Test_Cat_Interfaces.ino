@@ -94,6 +94,9 @@ class Cl_Btn {
 
 Cl_Btn Btn1(/*пин*/BUTTON); //Экземпляр обработчика для кнопки
 
+void UA6EM_PCINT0_handler(void){
+//encoder.tick(); 
+}
 
 
 void setup() {
