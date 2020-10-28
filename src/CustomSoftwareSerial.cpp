@@ -43,6 +43,9 @@ http://arduiniana.org.
 #include <Arduino.h>
 #include <CustomSoftwareSerial.h>
 #include <math.h>
+
+extern void UA6EM_PCINT0_handler(void);
+
 //
 // Lookup table
 //
@@ -311,13 +314,14 @@ inline void CustomSoftwareSerial::handle_interrupt()
   }
 }
 
-// Освобождено прерывание PCINT0 для нужд других устройств
-//#if defined(PCINT0_vect)
-//ISR(PCINT0_vect)
-//{
-//  CustomSoftwareSerial::handle_interrupt();
-//}
-//#endif
+#if defined(PCINT0_vect)
+ISR(PCINT0_vect)
+{
+  CustomSoftwareSerial::handle_interrupt();
+
+  UA6EM_PCINT0_handler();
+}
+#endif
 
 #if defined(PCINT1_vect)
 ISR(PCINT1_vect)
