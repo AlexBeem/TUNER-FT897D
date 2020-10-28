@@ -22,6 +22,9 @@ uniFT897D Radio(RadioPort);
 
 float ftFreq;
 
+void UA6EM_PCINT0_handler(void){
+//encoder.tick(); 
+}
 
 void setup() {
 #ifdef SOFTSERIAL
