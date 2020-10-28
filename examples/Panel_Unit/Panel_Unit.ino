@@ -30,7 +30,7 @@ float ftFreq;
 uint32_t ssbFreq;
 
 void UA6EM_PCINT0_handler(void){
-encoder.tick(); 
+//encoder.tick(); 
 }
 
 void setup() {
