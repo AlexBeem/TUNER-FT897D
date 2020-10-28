@@ -1,5 +1,7 @@
 // 26.10.2020 Добавлена возможность работы Энкодера через прерывание PCINT0 для этого немного
 // исправлена библиотека CustomSoftwareSerial, высвобождено это прерывание
+// 28.10.2020 опробовано совместное использование PCINT0 между кастомным софтовым сериалом
+// и энкодером, работает! Библиотеки и скетч примера поправлен
 
 #include <ALSerial.h>
 #include <uniFT897D.h>
@@ -9,9 +11,9 @@
 
 int freqUpPin = 4;                          // Define rotary encoder pins.
 int freqDownPin = 5;
-RotaryEncoder encoder(freqUpPin, freqDownPin);
+//RotaryEncoder encoder(freqUpPin, freqDownPin);
 //RotaryEncoder encoder2(A2, A3);
-RotaryEncoder encoder2(8, 9);
+RotaryEncoder encoder(9, 8); // если отчет обратный поменяйте пины местами
 
 
 #define SOFTSERIAL  // если определено используем SofwareSerial, 
@@ -19,7 +21,8 @@ RotaryEncoder encoder2(8, 9);
 //#define SERIAL1   //328PB ONLY
 
 #ifdef  SOFTSERIAL
-ALSerial RadioPort(2, 3); // RX, TX
+//ALSerial RadioPort(2, 3); // RX, TX
+ALSerial RadioPort(11, 12); // RX, TX
 uniFT897D Radio(RadioPort);
 #else
 #ifdef SERIAL1
@@ -99,6 +102,10 @@ class Cl_Btn {
 };
 Cl_Btn Btn2(/*пин*/BUTTON_ENCODER); //Экземпляр обработчика для кнопки
 
+void UA6EM_PCINT0_handler(void){
+encoder.tick(); 
+}
+
 
 void setup() {
 #ifdef SOFTSERIAL
@@ -135,21 +142,29 @@ Btn2.init(); // кнопка энкодера
 
  // You may have to modify the next 2 lines if using other pins than A2 and A3
  // PCICR |= (1 << PCIE0 /*D8-D13*/) | (1 << PCIE1 /*A0-A5*/) | (1 << PCIE2 /*D0-D7*/);    // Замаркировать неиспользуемые прерывания
- // PCICR |= (1 << PCIE0 /*D8-D13*/); 
+  PCICR |= (1 << PCIE0 /*D8-D13*/); 
  // PCICR |= (1 << PCIE1 /*A0-A5*/); 
  // PCICR |= (1 << PCIE2 /*D0-D7*/); 
- // PCMSK0 |= (1 << PCINT0) | (1 << PCINT1);    //  D8-PCINT0 и D13-PCINT5
+  PCMSK0 |= (1 << PCINT0) | (1 << PCINT1);    //  D8-PCINT0 и D13-PCINT5
  // PCMSK0 |= (1 << PCINT0) | (1 << PCINT1);
  // PCMSK1 |= (1 << PCINT8) | (1 << PCINT13);   //  A0 и A5
  // PCMSK1 |= (1 << PCINT10) | (1 << PCINT11);   //  A2 и A3
  // PCMSK2 |= (1 << PCINT16) | (1 << PCINT23);  //  D0 и D7
 }
-
 /* *
+#ifndef(PCINT1_vect)
+ISR(PCINT1_vect)
+{
+ encoder2.tick();
+}
+#endif
+
+**
 ISR(PCINT0_vect) {
-  encoder2.tick(); // 
+  encoder.tick(); // 
 }
 **/
+
 
 void loop() {
 
@@ -163,12 +178,12 @@ if (Btn2.read() == sbLong)   { // Вызвать процедуру по дли�
 incr = 1000;
 }
   static int pos = 0;
-  static int pos2 = 0;
+//  static int pos2 = 0;
   
-  encoder2.tick();
-  int newPos2 = encoder2.getPosition();
+//  encoder2.tick();
+//  int newPos2 = encoder2.getPosition();
 
-  encoder.tick();
+ // encoder.tick();
   int newPos = encoder.getPosition();
   
   if (pos != newPos) {
@@ -184,10 +199,10 @@ incr = 1000;
     freq_tmp = freq % 1000000;
     if(freq_tmp < 100000)  Serial.print("0");  // дополним лидирующим 0 
     Serial.println((freq_tmp));   
-    Serial.println((micros() - my_micros));
-    my_micros = micros();      
     #endif 
   }
- 
+  
+//    Serial.println((micros() - my_micros));  // для отладки замер длительности цикла
+//    my_micros = micros();    
   
 }  // END LOOP
