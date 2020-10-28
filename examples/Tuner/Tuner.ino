@@ -23,6 +23,9 @@ ALSerial RadioPort(&Serial);
 
 float ftFreq;
 
+void UA6EM_PCINT0_handler(void){
+//encoder.tick(); 
+}
 
 void ModeToSerial(const TOperatingMode AMode) {
   switch (AMode)
