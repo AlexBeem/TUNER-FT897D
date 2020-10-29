@@ -6,19 +6,15 @@
 #include <ALSerial.h>
 #include <uniFT897D.h>
 #include <CustomSoftwareSerial.h>
-#include <RotaryEncoder.h> // https://github.com/mathertel/RotaryEncoder/tree/master/examples
-//#include <GyverButton.h>
+#include <RotaryEncoder.h>             // https://github.com/mathertel/RotaryEncoder/tree/master/examples
+#include "config.h"
 
-int freqUpPin = 4;                          // Define rotary encoder pins.
-int freqDownPin = 5;
-//RotaryEncoder encoder(freqUpPin, freqDownPin);
-//RotaryEncoder encoder2(A2, A3);
-RotaryEncoder encoder(9, 8); // если отчет обратный поменяйте пины местами
+uint8_t freqUpPin = 9;                     // Define rotary encoder pins.
+uint8_t freqDownPin = 8;                   // если отcчет обратный поменяйте пины местами
 
-
-#define SOFTSERIAL  // если определено используем SofwareSerial, 
-                    // НАЗВАНИЕ не менять, используется в библиотеке
-//#define SERIAL1   //328PB ONLY
+RotaryEncoder encoder(freqUpPin, freqDownPin); 
+// Включение обработки энкодера через прерывание организовано в файле config,h
+// обработка прерывания должна быть организована в теле скетча
 
 #ifdef  SOFTSERIAL
 //ALSerial RadioPort(2, 3); // RX, TX
@@ -102,9 +98,30 @@ class Cl_Btn {
 };
 Cl_Btn Btn2(/*пин*/BUTTON_ENCODER); //Экземпляр обработчика для кнопки
 
+// если энкодер работает через прерывания
+#ifdef EXTERNALPCINT0
 void UA6EM_PCINT0_handler(void){
 encoder.tick(); 
 }
+#endif
+
+#ifdef EXTERNALPCINT1
+void UA6EM_PCINT1_handler(void){
+encoder.tick(); 
+}
+#endif
+
+#ifdef EXTERNALPCINT2
+void UA6EM_PCINT2_handler(void){
+encoder.tick(); 
+}
+#endif
+
+#ifdef EXTERNALPCINT3
+void UA6EM_PCINT3_handler(void){
+encoder.tick(); 
+}
+#endif
 
 
 void setup() {
@@ -140,6 +157,7 @@ Serial.println("Set VFO Freq = 145.500");
 //Btn1.init(); // кнопка переключателя
 Btn2.init(); // кнопка энкодера
 
+#ifdef EXTERNALPCINT0
  // You may have to modify the next 2 lines if using other pins than A2 and A3
  // PCICR |= (1 << PCIE0 /*D8-D13*/) | (1 << PCIE1 /*A0-A5*/) | (1 << PCIE2 /*D0-D7*/);    // Замаркировать неиспользуемые прерывания
   PCICR |= (1 << PCIE0 /*D8-D13*/); 
@@ -150,26 +168,14 @@ Btn2.init(); // кнопка энкодера
  // PCMSK1 |= (1 << PCINT8) | (1 << PCINT13);   //  A0 и A5
  // PCMSK1 |= (1 << PCINT10) | (1 << PCINT11);   //  A2 и A3
  // PCMSK2 |= (1 << PCINT16) | (1 << PCINT23);  //  D0 и D7
+ #endif
 }
-/* *
-#ifndef(PCINT1_vect)
-ISR(PCINT1_vect)
-{
- encoder2.tick();
-}
-#endif
-
-**
-ISR(PCINT0_vect) {
-  encoder.tick(); // 
-}
-**/
 
 
 void loop() {
 
-mill = millis(); // Без этой строки кнопка Квона не работает    
-Btn2.run();      // Опрос кнопки 2     
+mill = millis();               // Без этой строки кнопка Квона не работает    
+Btn2.run();                    // Опрос кнопки 2     
 if (Btn2.read() == sbClick)  { // Вызвать процедуру по короткому нажатию
 if(incr == 25000) {incr = 5000;}else{ incr = 25000;}
 }
@@ -177,32 +183,28 @@ if(incr == 25000) {incr = 5000;}else{ incr = 25000;}
 if (Btn2.read() == sbLong)   { // Вызвать процедуру по длинному нажатию
 incr = 1000;
 }
-  static int pos = 0;
-//  static int pos2 = 0;
-  
-//  encoder2.tick();
-//  int newPos2 = encoder2.getPosition();
+/*
+#ifndef EXTERNALPCINT0
+encoder.tick(); 
+#endif
+*/
 
- // encoder.tick();
-  int newPos = encoder.getPosition();
-  
-  if (pos != newPos) {
-    if(max(newPos,pos) > pos){freq = freq +incr;}else{freq = freq - incr;}
-    ftFreq = freq/10;  
-    Radio.SetVfoFreq(ftFreq);
-    pos = newPos;
+static int pos = 0;
+int newPos = encoder.getPosition();
+if (pos != newPos) {
+  if(max(newPos,pos) > pos){freq = freq +incr;}else{freq = freq - incr;}
+  ftFreq = freq/10;  
+  Radio.SetVfoFreq(ftFreq);
+  pos = newPos;
 
-    #ifdef  SOFTSERIAL  // Выведем значение частоты в порт
-    Serial.print("Freq = ");
-    Serial.print(freq/1000000);
-    Serial.print(".");
-    freq_tmp = freq % 1000000;
-    if(freq_tmp < 100000)  Serial.print("0");  // дополним лидирующим 0 
-    Serial.println((freq_tmp));   
-    #endif 
-  }
-  
-//    Serial.println((micros() - my_micros));  // для отладки замер длительности цикла
-//    my_micros = micros();    
-  
-}  // END LOOP
+  #ifdef  SOFTSERIAL  // Выведем значение частоты в порт
+  Serial.print("Freq = ");
+  Serial.print(freq/1000000);
+  Serial.print(".");
+  freq_tmp = freq % 1000000;
+  if(freq_tmp < 100000)  Serial.print("0");  // дополним лидирующим 0 
+  Serial.println((freq_tmp));   
+  #endif 
+ }
+} // END LOOP
+  // END
