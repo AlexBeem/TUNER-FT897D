@@ -35,6 +35,7 @@ http://arduiniana.org.
 #define _DEBUG 0
 #define _DEBUG_PIN1 11
 #define _DEBUG_PIN2 13
+//#define EXTERNALPCINT0
 //
 // Includes
 //
@@ -43,8 +44,25 @@ http://arduiniana.org.
 #include <Arduino.h>
 #include <CustomSoftwareSerial.h>
 #include <math.h>
+#include "config.h"
 
+// Блок для использования в вызывающей программе прерываний PCINT
+// вся обработка должна быть организована в вызывающей программе
+#ifdef EXTERNALPCINT0
 extern void UA6EM_PCINT0_handler(void);
+#endif
+
+#ifdef EXTERNALPCINT1
+extern void UA6EM_PCINT1_handler(void);
+#endif
+
+#ifdef EXTERNALPCINT2
+extern void UA6EM_PCINT2_handler(void);
+#endif
+
+#ifdef EXTERNALPCINT3
+extern void UA6EM_PCINT3_handler(void);
+#endif
 
 //
 // Lookup table
@@ -318,8 +336,9 @@ inline void CustomSoftwareSerial::handle_interrupt()
 ISR(PCINT0_vect)
 {
   CustomSoftwareSerial::handle_interrupt();
-
+  #ifdef EXTERNALPCINT0
   UA6EM_PCINT0_handler();
+  #endif
 }
 #endif
 
@@ -327,6 +346,11 @@ ISR(PCINT0_vect)
 ISR(PCINT1_vect)
 {
   CustomSoftwareSerial::handle_interrupt();
+ 
+  #ifdef EXTERNALPCINT1
+  UA6EM_PCINT1_handler();
+  #endif
+ 
 }
 #endif
 
@@ -334,6 +358,11 @@ ISR(PCINT1_vect)
 ISR(PCINT2_vect)
 {
   CustomSoftwareSerial::handle_interrupt();
+ 
+  #ifdef EXTERNALPCINT2
+  UA6EM_PCINT2_handler();
+  #endif
+ 
 }
 #endif
 
@@ -341,6 +370,11 @@ ISR(PCINT2_vect)
 ISR(PCINT3_vect)
 {
   CustomSoftwareSerial::handle_interrupt();
+ 
+  #ifdef EXTERNALPCINT3
+  UA6EM_PCINT3_handler();
+  #endif
+ 
 }
 #endif
 
