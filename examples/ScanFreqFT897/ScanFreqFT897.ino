@@ -6,6 +6,7 @@
 #include "ALSerial.h"
 #include "uniFT897D.h"
 #include <CustomSoftwareSerial.h>
+#include "config.h"
 
 
 #define SOFTSERIAL // если определено используем SofwareSerial
