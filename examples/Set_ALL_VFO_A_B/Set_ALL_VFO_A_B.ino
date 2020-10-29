@@ -1,11 +1,8 @@
 #include "ALSerial.h"
 #include "uniFT897D.h"
 #include <CustomSoftwareSerial.h>
+#include "config.h"
 
-
-#define SOFTSERIAL  // если определено используем SofwareSerial, 
-                    // НАЗВАНИЕ не менять, используется в библиотеке
-//#define SERIAL1   //328PB ONLY
 
 #ifdef  SOFTSERIAL
 ALSerial RadioPort(2, 3); // RX, TX
