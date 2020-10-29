@@ -105,12 +105,13 @@ CSERIAL_6E2	KEYWORD2
 CSERIAL_7E2	KEYWORD2
 CSERIAL_8E2	KEYWORD2
 #
-UA6EM_PCINT0_handler  KEYWORD2
-UA6EM_PCINT1_handler  KEYWORD2
-UA6EM_PCINT2_handler  KEYWORD2
-UA6EM_PCINT3_handler  KEYWORD2
+UA6EM_PCINT0_handler	KEYWORD2
+UA6EM_PCINT1_handler	KEYWORD2
+UA6EM_PCINT2_handler	KEYWORD2
+UA6EM_PCINT3_handler	KEYWORD2
 #######################################
 # Constants (LITERAL1)
 #######################################
+
 
 
